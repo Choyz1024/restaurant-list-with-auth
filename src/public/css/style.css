@@ -1,4 +1,4 @@
-header {
+.header {
   overflow: hidden;
 }
 
@@ -15,7 +15,8 @@ header {
   z-index: -1;
   margin: -5px;
   height: 360px;
-  background: #dddddd center center url('https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5720/restaurants-list-cover.jpg');
+  background: #dddddd center center
+    url('https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5720/restaurants-list-cover.jpg');
   background-size: cover;
   filter: blur(3px);
 }
@@ -54,14 +55,14 @@ header {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-.card img{
+.card img {
   height: 180px;
 }
 
-.card-title{
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+.card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .restaurant-category {
@@ -86,24 +87,40 @@ header {
   width: 9%;
 }
 
+.login-card {
+  margin: 0 auto;
+  max-width: 900px;
+  border-radius: 8px;
+  padding: 20px 30px;
+  border: 0;
+  margin-top: -160px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-card {
+  margin: 0 auto;
+  max-width: 900px;
+  border-radius: 8px;
+  padding: 20px 30px;
+  border: 0;
+  margin-top: -260px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
 @media screen and (max-width: 992px) {
-  
-  .card img{
+  .card img {
     height: 115px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  
   .restaurant-show-title {
     font-size: 2rem;
   }
 }
 
 @media screen and (max-width: 575px) {
-  
-  .card img{
+  .card img {
     height: auto;
   }
-  
 }
