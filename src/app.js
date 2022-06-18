@@ -1,10 +1,10 @@
 const express = require('express')
-const exphbs = require('express-handlebars')
-const methodOverride = require('method-override')
 const path = require('path')
+const exphbs = require('express-handlebars')
+const session = require('express-session')
+const methodOverride = require('method-override')
+const usePassport = require('./config/passport')
 const routes = require('./routes')
-require('dotenv').config()
-require('./config/mongoose')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -14,15 +14,33 @@ require('./config/mongoose')
 
 const app = express()
 
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(
+  session({
+    secret: 'ThisIsMySecret',
+    resave: false,
+    saveUninitialized: true,
+  })
+)
+
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
+usePassport(app)
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
+
 app.use(routes)
 
-app.listen(3000, () => {
-  console.log('Express is listening on http://localhost:3000')
+app.listen(process.env.PORT, () => {
+  console.log(`Express is listening on http://localhost:${process.env.PORT}`)
 })
