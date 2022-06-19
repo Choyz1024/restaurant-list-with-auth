@@ -12,14 +12,15 @@ router.get('/login', (req, res) => {
 })
 
 router.post(
-  '/login', (req, res, next) => {
+  '/login',
+  (req, res, next) => {
     const { email, password } = req.body
     if (!email || !password) {
       req.flash('warning_msg', 'Please enter Email & Password.')
       return res.redirect('/users/login')
     }
     return next()
-  } ,
+  },
   passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/users/login',
@@ -40,8 +41,8 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
   const errors = []
-  if (!name || !email || !password || !confirmPassword) {
-    errors.push({ message: 'All fields are required.' })
+  if (!email || !password || !confirmPassword) {
+    errors.push({ message: 'All fields are required, except name.' })
   }
   if (password !== confirmPassword) {
     errors.push({ message: 'The password confirmation does not match!' })
