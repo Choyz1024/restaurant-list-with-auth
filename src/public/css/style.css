@@ -100,11 +100,11 @@
   max-width: 1000px;
   border-radius: 8px;
   padding: 20px 30px;
-  margin-top: -350px;
+  margin-top: -300px;
 }
 
 .btn-create {
-  width: 7%;
+  width: 9%;
 }
 
 @media screen and (max-width: 992px) {

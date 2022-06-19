@@ -2,6 +2,7 @@
   <div class='col-md-6 m-auto'>
     <div class='card card-body'>
       <h1 class='text-center my-2'>Login</h1>
+      {{> message}}
       <form action='/users/login' method='POST'>
         <div class='mb-3'>
           <label for='email' class='mb-2'>Email</label>
@@ -11,10 +12,12 @@
           <label for='password' class='mb-2'>Password</label>
           <input type='password' id='password' name='password' class='form-control' placeholder='Enter Password' />
         </div>
-        <button type='submit' class='btn btn-primary btn-block'>Login</button>
-        <a href='/auth/facebook' class='btn btn-info btn-block'>Facebook Login</a>
+        <div class="d-grid gap-2 mt-4">
+          <button type='submit' class='btn btn-primary mb-1'>Login</button>
+          <a href='/auth/facebook' class='btn btn-info'>Facebook Login</a>
+        </div>
       </form>
-      <p class='lead mt-2'>
+      <p class='lead mt-1'>
         No Account?
         <a href='/users/register'>Register</a>
       </p>
