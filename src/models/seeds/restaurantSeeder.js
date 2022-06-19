@@ -29,27 +29,31 @@ db.once('open', () => {
 
   Promise.all(
     Array.from(USER_LIST, (seedUser, userIndex) => {
-      bcrypt
+      return bcrypt
         .genSalt(10)
         .then((salt) => bcrypt.hash(seedUser.password.toString(), salt))
         .then((hash) =>
           User.create({
-            name: `seedUser_${userIndex}`,
+            name: `User_${userIndex + 1}`,
             email: seedUser.email,
             password: hash,
             type: 'email',
           })
         )
-        .then((user) => {
-          Array.from(restaurantList, (restaurant, restaurantIndex) => {
-            if (userIndex === parseInt(restaurantIndex / 3)) {
-              restaurant.userId = user._id
-              Restaurant.create(restaurant)
-            }
-          })
-        })
+        .then((user) =>
+          Promise.all(
+            Array.from(restaurantList, (restaurant, restaurantIndex) => {
+              if (userIndex === parseInt(restaurantIndex / 3)) {
+                restaurant.userId = user._id
+                return Restaurant.create(restaurant)
+              }
+            })
+          )
+        )
     })
   ).then(() => {
     console.log('Database seeding completed successfully.')
+    db.close()
+    process.exit()
   })
 })
