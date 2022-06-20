@@ -12,6 +12,7 @@ module.exports = (app) => {
     new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
       User.findOne({ email })
         .then((user) => {
+          if (!user) return done(null, false, { message: 'Email or Password is incorrect.' })
           return bcrypt.compare(password, user.password).then((isMatch) => {
             if (!isMatch) {
               return done(null, false, { message: 'Email or Password is incorrect.' })
